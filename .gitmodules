@@ -1,0 +1,30 @@
+[submodule "guessing-game"]
+	path = guessing-game
+	url = ./datatypes
+[submodule "datatypes"]
+	path = datatypes
+	url = ./datatypes
+[submodule "loops"]
+	path = loops
+	url = ./loops
+[submodule "ownership"]
+	path = ownership
+	url = ./ownership
+[submodule "p1"]
+	path = p1
+	url = ./p1
+[submodule "p2"]
+	path = p2
+	url = ./p2
+[submodule "p3"]
+	path = p3
+	url = ./p3
+[submodule "phrases"]
+	path = phrases
+	url = ./phrases
+[submodule "restaurant"]
+	path = restaurant
+	url = ./restaurant
+[submodule "traits"]
+	path = traits
+	url = ./traits
