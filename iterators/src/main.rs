@@ -20,8 +20,9 @@ fn find_largest<'a>(shoes: &'a Vec<Shoe>) -> Option<&'a Shoe>{
     return Some(b);
 }
 
-fn find_size(shoes: Vec<Shoe>, size: u32) -> Vec<Shoe> {
-    shoes.into_iter().filter(|s| s.size == size).collect()
+fn find_size(shoes: &Vec<Shoe>, size: u32) -> Vec<&Shoe> {
+    let ar = shoes.iter().filter(|s| s.size == size).collect();
+    return ar
 }
 
 
@@ -42,8 +43,10 @@ fn main() {
         println!("{:?}", s);
     }
 
-    let ss = find_size(shoes, 10);
+    let ss = find_size(&shoes, 10);
     for s in ss {
         println!("{:?}", s);
     }
+
+    println!("{:?}", shoes[0]);
 }

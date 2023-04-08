@@ -1,25 +1,44 @@
 use std::fs;
 use std::error::Error;
 
-
+/// Holds filepath and query that is to be searched in file content
 pub struct Config {
     pub filepath: String,
     pub query: String,
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &str> {
-        if args.len() < 3 {
-            return Err("not enough args");
-        }
+    /// Builds Config object from given Iterator
+    /// Frist item from args is skipped assuming it the name of binary executable
+    pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
+        args.next();
+
+        let filepath = match args.next() {
+            Some(a) => a,
+            None => return Err("filepath not provided"),
+        };
+
+        let query = match args.next() {
+            Some(a) => a,
+            None => return Err("query not provided"),
+        };
 
         return Ok(Config {
-            filepath: args[1].clone(),
-            query: args[2].clone(),
+            filepath,
+            query,
         });
     }
 }
 
+/// Finds given query in the given file content
+///
+/// # EXample
+///
+/// ```
+/// let arg = vec!["execpath".to_string(), "filepath".to_string(), "query".to_string()];
+/// let cfg = cli::onfig::build(arg.iter());
+/// cli::run(cfg);
+/// ```
 pub fn run(cfg: Config) -> Result<(), Box<dyn Error>> {
     let c = fs::read_to_string(&cfg.filepath)?;
 
@@ -40,7 +59,7 @@ mod tests {
     #[test]
     fn build() {
         let arg = vec!["one".to_string(), "two".to_string(), "three".to_string()];
-        let cfg = Config::build(&arg);
+        let cfg = Config::build(arg.iter());
 
         assert_eq!(cfg.is_err(), false);
 
